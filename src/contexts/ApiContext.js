@@ -1,6 +1,5 @@
 import { createContext, useState } from "react";
 
-
 export const ApiContext = createContext(null);
 
 export default function ApiProvider ({children}){

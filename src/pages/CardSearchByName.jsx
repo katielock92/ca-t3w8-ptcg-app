@@ -1,8 +1,7 @@
-import { useContext, useEffect, useState } from "react"
+import { useContext, useEffect, useState } from "react";
 import { ApiContext } from "../contexts/ApiContext";
 import { useParams } from "react-router-dom";
 import PokemonCard from "../components/PokemonCard";
-
 
 export default function CardSearchByName() {
 
