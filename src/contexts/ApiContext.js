@@ -1,15 +1,27 @@
-import { createContext, useState } from "react"
+import { createContext, useEffect, useState } from "react";
 
 
-export const ApiContext = createContext(null)
+export const ApiContext = createContext(null);
 
-export default function ApiProvider(children) {
+export default function ApiProvider ({children}){
 
-    const [apiUrl, setApiUrl] = useState("https://api.pokemontcg.io/");
+	const [apiUrl, setApiUrl] = useState("https://api.pokemontcg.io/v2/");
 
-    return (
-        <ApiContext.Provider value={{apiUrl: apiUrl, setApiUrl: setApiUrl}}>
-            {children}
-        </ApiContext.Provider>
-    );
+	// useEffect(() => {
+	// 	setApiUrl("https://api.pokemontcg.io/");
+	// }, []);
+
+	return (
+		<ApiContext.Provider value={
+			{
+				api: apiUrl, 
+				setApi: setApiUrl
+			}
+		}>
+
+			{children}
+
+		</ApiContext.Provider>
+	)
+
 }
