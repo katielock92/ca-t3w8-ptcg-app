@@ -4,62 +4,62 @@ import { useParams } from "react-router-dom";
 import PokemonCard from "../components/PokemonCard";
 
 export default function CardSearchByName() {
-  // search results
-  const [searchResults, setSearchResults] = useState([]);
 
-  // api URL
-  const { api } = useContext(ApiContext);
+	// search results 
+	const [searchResults, setSearchResults] = useState([]);
 
-  // route param for the pokemon name
-  const { pokemonName } = useParams();
+	// api URL 
+	const {api} = useContext(ApiContext);
 
-  // api key
-  let apiKey = process.env.REACT_APP_API_KEY;
+	// route param for the pokemon name 
+	const {pokemonName} = useParams();
 
-  useEffect(() => {
-    console.log(
-      "Card search component has mounted! Making a fetch request now..."
-    );
+	// api key 
+	let apiKey = process.env.REACT_APP_API_KEY;
 
-    async function apiRequest() {
-      let queryParams = new URLSearchParams({
-        q: "name:" + pokemonName,
-      });
-      let response = await fetch(api + "cards?" + queryParams, {
-        headers: {
-          "X-Api-Key": apiKey,
-        },
-      });
+	useEffect(() => {
+		console.log("Card search component has mounted! Making a fetch request now...");
 
-      let responseData = await response.json();
+		async function apiRequest(){
+			let queryParams = new URLSearchParams({
+				q: 'name:' + pokemonName
+			})
+			let response = await fetch(api + 'cards?' + queryParams, {
+				headers: {
+					'X-Api-Key': apiKey
+				}
+			});
+			
+			console.log(response);
 
-      setSearchResults(responseData.data);
-    }
+			let responseData = await response.json();
 
-    apiRequest();
-  }, []);
+			setSearchResults(responseData.data);
+		}
 
-  return (
-    <div>
-      <h1>Card Search</h1>
-      {searchResults.length > 0 && (
-        <div>
-          <h1>
-            {searchResults[0].name} - {searchResults[0].id}
-          </h1>
+		apiRequest();
 
-          {searchResults.map((result) => {
-            return (
-              <PokemonCard
-                key={result.id}
-                cardTitle={result.name}
-                imageUrl={result.images.small}
-                cardDescription={result.flavorText}
-              />
-            );
-          })}
-        </div>
-      )}
-    </div>
-  );
+	// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, []);
+
+	return (
+		<div>
+			<h1>Card Search</h1>
+			{searchResults.length > 0 && 
+			<div>
+				<h1>{searchResults[0].name} - {searchResults[0].id}</h1>
+
+				{searchResults.map(result => {
+					return <PokemonCard key={result.id} 
+					cardTitle={result.name} 
+					imageUrl={result.images.small} 
+					cardDescription={result.flavorText} 
+					/>
+				})}
+
+
+			</div>
+			}
+		</div>
+	)
 }
