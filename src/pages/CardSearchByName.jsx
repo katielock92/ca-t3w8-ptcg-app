@@ -7,26 +7,39 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 
 export default function CardSearchByName() {
+  // search results
+  const [searchResults, setSearchResults] = useState([]);
 
-	// search results 
-	const [searchResults, setSearchResults] = useState([]);
+  // api URL
+  const { api } = useContext(ApiContext);
 
-	// api URL 
-	const {api} = useContext(ApiContext);
+  // route param for the pokemon name
+  const { pokemonName } = useParams();
 
-	// route param for the pokemon name 
-	const {pokemonName} = useParams();
+  // api key
+  let apiKey = process.env.REACT_APP_API_KEY;
 
-	// api key 
-	let apiKey = process.env.REACT_APP_API_KEY;
+  useEffect(() => {
+    console.log(
+      "Card search component has mounted! Making a fetch request now..."
+    );
 
-	useEffect(() => {
-		console.log("Card search component has mounted! Making a fetch request now...");
-
+    async function apiRequest() {
+      let queryParams = new URLSearchParams({
+        q: "name:" + pokemonName,
+      });
+      let response = await fetch(api + "cards?" + queryParams, {
+        headers: {
+          "X-Api-Key": apiKey,
+        },
+      });
 
       console.log(response);
 
-			let responseData = await response.json();
+      let responseData = await response.json();
+
+      setSearchResults(responseData.data);
+    }
 
     apiRequest();
 
