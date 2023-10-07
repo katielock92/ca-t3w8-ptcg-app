@@ -44,7 +44,7 @@ export default function CardSearchByName() {
     apiRequest();
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [pokemonName]);
 
   return (
     <div>
@@ -57,7 +57,7 @@ export default function CardSearchByName() {
 
           {/* container here with rows and columns */}
           {/* put card in columns and let them responsively organise themselves  */}
-          <Container fluid style={{ padding: "5%" }}>
+          <Container fluid className="mx-auto" style={{ padding: "5%" }}>
             <Row style={{ display: "flex", flexWrap: "wrap" }}>
               {searchResults.map((result) => {
                 return (
