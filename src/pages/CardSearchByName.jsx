@@ -2,9 +2,11 @@ import { useContext, useEffect, useState } from "react"
 import { ApiContext } from "../contexts/ApiContext";
 import { useParams } from "react-router-dom";
 import PokemonCard from "../components/PokemonCard";
+
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
+
 
 export default function CardSearchByName() {
 
@@ -23,22 +25,8 @@ export default function CardSearchByName() {
 	useEffect(() => {
 		console.log("Card search component has mounted! Making a fetch request now...");
 
-		async function apiRequest(){
-			let queryParams = new URLSearchParams({
-				q: 'name:' + pokemonName
-			})
-			let response = await fetch(api + 'cards?' + queryParams, {
-				headers: {
-					'X-Api-Key': apiKey
-				}
-			});
-			
-			console.log(response);
 
-			let responseData = await response.json();
-
-			setSearchResults(responseData.data);
-		}
+      console.log(response);
 
 		apiRequest();
 
@@ -71,7 +59,14 @@ export default function CardSearchByName() {
 					</Row>
 				</Container>
 
-
+  return (
+    <div>
+      <h1>Card Search</h1>
+      {searchResults.length > 0 && (
+        <div className="mx-auto">
+          <h1>
+            {searchResults[0].name} - {searchResults[0].id}
+          </h1>
 
 
 			</div>
